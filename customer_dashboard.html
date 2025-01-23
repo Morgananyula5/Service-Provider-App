@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #providers {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .provider {
+            background-color: #e9ecef;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .provider:hover {
+            background-color: #d3d9df;
+        }
+
+        .provider-details {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 10px;
+            background: #fff;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .provider-details.show {
+            display: block;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="fade-in">Service Providers</h1>
+    <div id="providers" class="fade-in"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            fetchProviders();
+        });
+
+        function fetchProviders() {
+            fetch('/service_providers')
+                .then(response => response.json())
+                .then(data => {
+                    let providersDiv = document.getElementById('providers');
+                    providersDiv.innerHTML = '';
+                    data.service_providers.forEach(provider => {
+                        let details = document.createElement('div');
+                        details.className = 'provider-details';
+                        details.innerHTML = `
+                            <p><strong>Contact:</strong> ${provider.phone} | ${provider.email} ${provider.website ? `| <a href="${provider.website}" target="_blank">Website</a>` : ''}</p>
+                            <p><strong>Description:</strong> ${provider.service_description}</p>
+                            <p><strong>Areas Served:</strong> ${provider.areas_served}</p>
+                            <p><strong>Availability:</strong> ${provider.availability}</p>
+                            <p><strong>Pricing:</strong> ${provider.pricing_info || 'Not provided'}</p>
+                            <p><strong>Rating:</strong> ${provider.rating.toFixed(1)}/5</p>
+                            <div><strong>Reviews:</strong>
+                                ${provider.reviews.map(r => `
+                                    <div>
+                                        <p><em>${r.reviewer}</em> (${r.stars} stars): ${r.comment}</p>
+                                    </div>
+                                `).join('') || '<p>No reviews yet</p>'}
+                            </div>
+                        `;
+                        
+                        let providerElement = document.createElement('div');
+                        providerElement.className = 'provider';
+                        providerElement.innerHTML = `<h3>${provider.name}</h3><p><strong>Service Type:</strong> ${provider.service_type}</p><p><strong>Location:</strong> ${provider.areas_served}</p>`;
+                        providerElement.setAttribute('data-id', provider.id);
+                        providerElement.addEventListener('click', function() {
+                            this.nextElementSibling.classList.toggle('show');
+                        });
+                        
+                        providersDiv.appendChild(providerElement);
+                        providersDiv.appendChild(details);
+                    });
+                });
+        }
+    </script>
+</body>
+</html>
