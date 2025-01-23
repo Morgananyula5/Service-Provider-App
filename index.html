@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Providers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        #providers {
+            width: 80%;
+            max-width: 600px;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        #providers p {
+            background-color: #e9ecef;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        #providers p:hover {
+            background-color: #d3d9df;
+        }
+
+        form {
+            width: 80%;
+            max-width: 600px;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        input[type="text"], input[type="email"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .provider-details {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 10px;
+            background: #fff;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .provider-details.show {
+            display: block;
+        }
+
+        .review {
+            background: #f8f9fa;
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="fade-in">Service Providers</h1>
+    <div id="providers" class="fade-in"></div>
+
+    <h2 class="fade-in">Add New Provider</h2>
+    <form id="addProviderForm" class="fade-in">
+        <input type="text" id="name" placeholder="Name" required><br>
+        <input type="email" id="email" placeholder="Email" required><br>
+        <input type="text" id="phone" placeholder="Phone" required><br>
+        <input type="text" id="website" placeholder="Website (optional)"><br>
+        <input type="text" id="service_type" placeholder="Service Type" required><br>
+        <textarea id="service_description" placeholder="Service Description" required></textarea><br>
+        
+        <!-- Dropdown for Areas Served -->
+        <select id="areas_served" required>
+            <option value="" selected disabled>Select County</option>
+            <option value="Mombasa">Mombasa</option>
+            <option value="Kwale">Kwale</option>
+            <option value="Kilifi">Kilifi</option>
+            <option value="Tana River">Tana River</option>
+            <option value="Lamu">Lamu</option>
+            <option value="Taita-Taveta">Taita-Taveta</option>
+            <option value="Garissa">Garissa</option>
+            <option value="Wajir">Wajir</option>
+            <option value="Mandera">Mandera</option>
+            <option value="Marsabit">Marsabit</option>
+            <option value="Isiolo">Isiolo</option>
+            <option value="Meru">Meru</option>
+            <option value="Tharaka-Nithi">Tharaka-Nithi</option>
+            <option value="Embu">Embu</option>
+            <option value="Kitui">Kitui</option>
+            <option value="Machakos">Machakos</option>
+            <option value="Makueni">Makueni</option>
+            <option value="Nyandarua">Nyandarua</option>
+            <option value="Nyeri">Nyeri</option>
+            <option value="Kirinyaga">Kirinyaga</option>
+            <option value="Murang'a">Murang'a</option>
+            <option value="Kiambu">Kiambu</option>
+            <option value="Turkana">Turkana</option>
+            <option value="West Pokot">West Pokot</option>
+            <option value="Samburu">Samburu</option>
+            <option value="Trans-Nzoia">Trans-Nzoia</option>
+            <option value="Uasin Gishu">Uasin Gishu</option>
+            <option value="Elgeyo-Marakwet">Elgeyo-Marakwet</option>
+            <option value="Nandi">Nandi</option>
+            <option value="Baringo">Baringo</option>
+            <option value="Laikipia">Laikipia</option>
+            <option value="Nakuru">Nakuru</option>
+            <option value="Narok">Narok</option>
+            <option value="Kajiado">Kajiado</option>
+            <option value="Kericho">Kericho</option>
+            <option value="Bomet">Bomet</option>
+            <option value="Kakamega">Kakamega</option>
+            <option value="Vihiga">Vihiga</option>
+            <option value="Bungoma">Bungoma</option>
+            <option value="Busia">Busia</option>
+            <option value="Siaya">Siaya</option>
+            <option value="Kisumu">Kisumu</option>
+            <option value="Homa Bay">Homa Bay</option>
+            <option value="Migori">Migori</option>
+            <option value="Kisii">Kisii</option>
+            <option value="Nyamira">Nyamira</option>
+            <option value="Nairobi City">Nairobi City</option>
+        </select><br>
+
+        <!-- Dropdown for Availability -->
+        <select id="availability" required>
+            <option value="" selected disabled>Select Availability</option>
+            <option value="9am-5pm">9am-5pm</option>
+            <option value="24/7">24/7</option>
+            <option value="Emergency Only">Emergency Only</option>
+            <option value="Weekdays">Weekdays</option>
+            <option value="Weekends">Weekends</option>
+            <!-- Add more options as needed -->
+        </select><br>
+
+        <textarea id="pricing_info" placeholder="Pricing Information (optional)"></textarea><br>
+        <button type="submit">Add Provider</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            fetchProviders();
+            document.getElementById('addProviderForm').addEventListener('submit', addProvider);
+        });
+
+        function fetchProviders() {
+            fetch('/service_providers')
+                .then(response => response.json())
+                .then(data => {
+                    let providersDiv = document.getElementById('providers');
+                    providersDiv.innerHTML = '';
+                    data.service_providers.forEach(provider => {
+                        let details = document.createElement('div');
+                        details.className = 'provider-details';
+                        details.innerHTML = `
+                            <p><strong>Contact:</strong> ${provider.phone} | ${provider.email} ${provider.website ? `| <a href="${provider.website}" target="_blank">Website</a>` : ''}</p>
+                            <p><strong>Description:</strong> ${provider.service_description}</p>
+                            <p><strong>Areas Served:</strong> ${provider.areas_served}</p>
+                            <p><strong>Availability:</strong> ${provider.availability}</p>
+                            <p><strong>Pricing:</strong> ${provider.pricing_info || 'Not provided'}</p>
+                            <p><strong>Rating:</strong> ${provider.rating.toFixed(1)}/5</p>
+                            <div><strong>Reviews:</strong>
+                                ${provider.reviews.map(r => `
+                                    <div class="review">
+                                        <p><em>${r.reviewer}</em> (${r.stars} stars): ${r.comment}</p>
+                                    </div>
+                                `).join('') || '<p>No reviews yet</p>'}
+                            </div>
+                        `;
+                        
+                        let providerElement = document.createElement('p');
+                        providerElement.textContent = `${provider.name} - ${provider.service_type} in ${provider.location}`;
+                        providerElement.setAttribute('data-id', provider.id);
+                        providerElement.addEventListener('click', function() {
+                            this.nextElementSibling.classList.toggle('show');
+                        });
+                        
+                        providersDiv.appendChild(providerElement);
+                        providersDiv.appendChild(details);
+                    });
+                });
+        }
+
+        function addProvider(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const website = document.getElementById('website').value;
+            const service_type = document.getElementById('service_type').value;
+            const service_description = document.getElementById('service_description').value;
+            const areas_served = document.getElementById('areas_served').value;
+            const availability = document.getElementById('availability').value;
+            const pricing_info = document.getElementById('pricing_info').value;
+
+            fetch('/service_providers', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({name, email, phone, website, service_type, service_description, areas_served, availability, pricing_info}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                fetchProviders(); // Refresh the list
+                // Clear form
+                document.getElementById('addProviderForm').reset();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Adding click event to show provider details
+        document.getElementById('providers').addEventListener('click', function(e) {
+            if(e.target && e.target.nodeName == "P" && e.target.hasAttribute('data-id')) {
+                let providerId = e.target.getAttribute('data-id');
+                fetch(`/service_providers/${providerId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        let detailsDiv = e.target.nextElementSibling;
+                        if (!detailsDiv.classList.contains('show')) {
+                            detailsDiv.innerHTML = `
+                                <p><strong>Contact:</strong> ${data.phone} | ${data.email} ${data.website ? `| <a href="${data.website}" target="_blank">Website</a>` : ''}</p>
+                                <p><strong>Description:</strong> ${data.service_description}</p>
+                                <p><strong>Areas Served:</strong> ${data.areas_served}</p>
+                                <p><strong>Availability:</strong> ${data.availability}</p>
+                                <p><strong>Pricing:</strong> ${data.pricing_info || 'Not provided'}</p>
+                                <p><strong>Rating:</strong> ${data.rating.toFixed(1)}/5</p>
+                                <div><strong>Reviews:</strong>
+                                    ${data.reviews.map(r => `
+                                        <div class="review">
+                                            <p><em>${r.reviewer}</em> (${r.stars} stars): ${r.comment}</p>
+                                        </div>
+                                    `).join('') || '<p>No reviews yet</p>'}
+                                </div>
+                            `;
+                            detailsDiv.classList.add('show');
+                        } else {
+                            detailsDiv.classList.remove('show');
+                        }
+                    });
+            }
+        });
+    </script>
+</body>
+</html>
